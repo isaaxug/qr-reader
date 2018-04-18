@@ -19,8 +19,8 @@ time.sleep(0.1)
 app = Flask(__name__)
 
 
-@app.route('/video_feed')
-def video_feed():
+@app.route('/stream')
+def stream():
     return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
