@@ -1,0 +1,6 @@
+{
+  "description": "python - raspberry-pi",
+  "scripts": {
+     "start": "python3 main.py"
+    }
+}
