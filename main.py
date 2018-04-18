@@ -34,7 +34,7 @@ def get_frame():
     camera.capture(rawCapture, format="bgr", use_video_port=True)
     frame = rawCapture.array
     decoded_objs = decode(frame)
-    image = display(frame, decoded_objs)
+    frame = display(frame, decoded_objs)
     ret, jpeg = cv2.imencode('.jpg', frame)
     rawCapture.truncate(0)
 
