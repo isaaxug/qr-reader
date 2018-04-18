@@ -55,7 +55,7 @@ def display(frame, decoded_objs):
         frame = cv2.rectangle(frame,
                               (left, top),
                               (left + width, height + top),
-                              (0, 255, 0), 2)
+                              (0, 0, 255), 2)
     return frame
     
 if __name__ == '__main__':
