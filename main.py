@@ -42,6 +42,9 @@ def get_frame():
 def process_frame(frame):
     decoded_objs = decode(frame)
     draw_positions(frame, decoded_objs)
+    # 課題1 認識したQRコード数の表示
+    cv2.putText(frame, 'Detected QR codes: {}'.format(len(decoded_objs)),
+                (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
 def decode(frame):
     decoded_objs = pyzbar.decode(frame, scan_locations=True)
@@ -55,9 +58,6 @@ def decode(frame):
 def draw_positions(frame, decoded_objs):
     for decoded_obj in decoded_objs:
         left, top, width, height = decoded_obj.rect
-        # 課題1 認識したQRコード数の表示
-        cv2.putText(frame, 'Detected QR codes: {}'.format(len(decoded_objs)),
-                    (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
         frame = cv2.rectangle(frame,
                               (left, top),
                               (left + width, height + top),
