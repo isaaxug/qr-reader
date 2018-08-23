@@ -33,30 +33,33 @@ def gen():
 def get_frame():
     camera.capture(rawCapture, format="bgr", use_video_port=True)
     frame = rawCapture.array
-    decoded_objs = decode(frame)
-    frame = display(frame, decoded_objs)
+    process_frame(frame)
     ret, jpeg = cv2.imencode('.jpg', frame)
     rawCapture.truncate(0)
 
     return jpeg.tobytes()
+    
+def process_frame(frame):
+    decoded_objs = decode(frame)
+    draw_positions(frame, decoded_objs)
 
 def decode(frame):
     decoded_objs = pyzbar.decode(frame, scan_locations=True)
-    for obj in decoded_objs:
+    for decoded_obj in decoded_objs:
         print(datetime.now().strftime('%H:%M:%S.%f'))
-        print('Type: ', obj.type)
-        print('Data: ', obj.data)
+        print('Type: ', decoded_obj.type)
+        print('Data: ', decoded_obj.data)
     
     return decoded_objs
         
-def display(frame, decoded_objs):
+def draw_positions(frame, decoded_objs):
     for decoded_obj in decoded_objs:
         left, top, width, height = decoded_obj.rect
         frame = cv2.rectangle(frame,
                               (left, top),
                               (left + width, height + top),
-                              (0, 0, 255), 2)
-    return frame
-    
+                              (0, 255, 0), 2)
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=False, threaded=True)
