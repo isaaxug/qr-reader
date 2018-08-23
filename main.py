@@ -58,6 +58,10 @@ def decode(frame):
 def draw_positions(frame, decoded_objs):
     for decoded_obj in decoded_objs:
         left, top, width, height = decoded_obj.rect
+        # 課題2 QRコードのデータ表示
+        cv2.putText(frame, 'Data: {}'.format(decoded_obj.data.decode('utf-8')),
+                    (left, top - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 200, 255), 2,
+                    bottomLeftOrigin=True)
         frame = cv2.rectangle(frame,
                               (left, top),
                               (left + width, height + top),
